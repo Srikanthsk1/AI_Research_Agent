@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <title>AI Research Agent</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="AI Research Agent home">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span>AI RESEARCH AGENT<span class="brand-dot">.</span></span>
+      </a>
+      <span class="topbar-note"><span class="status-dot"></span> AI RESEARCH WORKSPACE</span>
+    </header>
+
+    <main id="top" class="layout">
+      <section class="intro">
+        <p class="eyebrow">EVIDENCE, ORGANIZED</p>
+        <h1>Good research<br />starts with a <em>question.</em></h1>
+        <p class="intro-copy">Explore a topic, gather sources, and turn the evidence into a clear, cited report.</p>
+        <div class="intro-foot"><span class="intro-rule"></span> PLAN &nbsp;·&nbsp; SEARCH &nbsp;·&nbsp; SYNTHESIZE</div>
+      </section>
+
+      <section class="workspace" aria-label="Research request">
+        <form id="research-form" class="request-card">
+          <div class="card-heading">
+            <div>
+              <p class="eyebrow">NEW RESEARCH RUN</p>
+              <h2>What would you like to know?</h2>
+            </div>
+            <span class="step-badge">01 <span>/ 01</span></span>
+          </div>
+
+          <label class="field-label" for="query">RESEARCH QUESTION</label>
+          <textarea id="query" name="query" rows="4" minlength="3" maxlength="2000" required placeholder="Example: How are humanoid robots changing manufacturing, and what limits their adoption?"></textarea>
+          <div class="field-hint">Be specific about the topic, time period, or angle you care about.</div>
+
+          <div class="options-grid">
+            <div class="option-field">
+              <label class="field-label" for="depth">RESEARCH DEPTH</label>
+              <select id="depth" name="research_depth">
+                <option value="basic">Basic · focused overview</option>
+                <option value="intermediate" selected>Intermediate · key angles</option>
+                <option value="deep">Deep · broader coverage</option>
+              </select>
+            </div>
+            <div class="option-field">
+              <label class="field-label" for="format">OUTPUT FORMAT</label>
+              <select id="format" name="output_format">
+                <option value="report" selected>Full report</option>
+                <option value="markdown">Concise Markdown</option>
+                <option value="json">Structured JSON</option>
+              </select>
+            </div>
+            <div class="option-field source-field">
+              <label class="field-label" for="sources">MAX SOURCES</label>
+              <input id="sources" name="max_sources" type="number" min="1" max="100" value="10" required />
+              <div class="field-hint">The API may apply a lower server cap.</div>
+            </div>
+            <label class="citation-toggle" for="citations">
+              <input id="citations" name="include_citations" type="checkbox" checked />
+              <span class="custom-check" aria-hidden="true"></span>
+              <span><strong>Include citations</strong><small>Keep source references in the report</small></span>
+            </label>
+          </div>
+
+          <details class="connection-settings">
+            <summary>Connection settings</summary>
+            <div class="connection-grid">
+              <div class="option-field">
+                <label class="field-label" for="api-url">API BASE URL</label>
+                <input id="api-url" type="url" value="http://127.0.0.1:8000" autocomplete="url" />
+              </div>
+              <div class="option-field">
+                <label class="field-label" for="api-key">API KEY <span class="optional">OPTIONAL</span></label>
+                <input id="api-key" type="password" placeholder="Only needed when API_KEY is enabled" autocomplete="off" />
+              </div>
+            </div>
+            <p class="field-hint">The key stays in this page’s memory and is sent only to the API URL above. Use this UI for local or trusted development.</p>
+          </details>
+
+          <div class="form-footer">
+            <span class="privacy-note"><span aria-hidden="true">↗</span> Research may take a few minutes.</span>
+            <button id="submit-button" class="submit-button" type="submit">
+              <span>Start research</span><span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+        </form>
+
+        <section id="run-panel" class="run-panel" aria-live="polite" hidden>
+          <div class="run-heading">
+            <div class="run-icon" aria-hidden="true">✳</div>
+            <div><p class="eyebrow">RESEARCH STATUS</p><h2 id="run-status">Preparing your research…</h2></div>
+            <span id="run-indicator" class="run-indicator"><span class="status-dot"></span><span id="run-state-label">QUEUED</span></span>
+          </div>
+          <p id="run-message" class="run-message">Your question is in the queue.</p>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <div id="result-area" class="result-area" hidden>
+            <div class="result-meta"><span id="evidence-count"></span><span id="output-label"></span></div>
+            <article id="report-output" class="report-output"></article>
+            <div class="result-actions">
+              <button id="download-pdf" class="download-button" type="button" hidden>Download PDF <span aria-hidden="true">↓</span></button>
+              <button id="new-run" class="text-button" type="button">Start another research run <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+        </section>
+
+        <footer class="workspace-footer"><span>POWERED BY YOUR RESEARCH AGENT</span><a href="http://127.0.0.1:8000/docs" target="_blank" rel="noreferrer">API documentation ↗</a></footer>
+      </section>
+    </main>
+    <div class="page-grain" aria-hidden="true"></div>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+[console_scripts]
+ai-research-agent = ai_research_agent.api:run
